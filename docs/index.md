@@ -33,13 +33,15 @@ The API will also have a websocket endpoint that will allow clients to connect a
 - ws://localhost:8080/{userid}
 
 ## Dependencies
+
+***THIS IS A TEMPORARY LIST, CHANGES ARE TO BE EXPECTED***
+
 Rust:
 - actix-web
 - actix-rt
 - actix-web-actors
 - serde
 - diesel
-- amqrs
 - tokio
 
 Java:
@@ -49,7 +51,6 @@ Java:
 - Spring Security
 - Spring Websocket
 - Spring Boot Starter Test
-- RabbitMQ
 
 Frontend:
 - Vue
@@ -58,3 +59,17 @@ Frontend:
 - Vue-Router
 - Vuex
 
+## Testing
+
+The API will be tested using the following tools:
+
+unit tests:
+- actix-web: actix-web-test
+- springboot: JUnit
+
+integration tests:
+- actix-web: actix-web-test
+- springboot: JUnit
+
+load tests:
+- k6 - Load Testing
