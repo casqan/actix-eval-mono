@@ -1,0 +1,17 @@
+{
+  "name": "actix-eval-mono",
+  "version": "1.0.0",
+  "description": "multi-backend-evaluation",
+  "main": "index.js",
+  "author": "casqan.edu <Marc.Matija@student.hs-rm.de>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.3"
+  }
+}
