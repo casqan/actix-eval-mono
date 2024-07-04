@@ -1,0 +1,2 @@
+GET {{base_url}}/channels/{{channel_id}}/messages
+Authorization: Bearer {{auth_token}}

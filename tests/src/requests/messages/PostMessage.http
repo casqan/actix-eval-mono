@@ -1,0 +1,7 @@
+POST {{base_url}}/channels/{{channel_id}}/messages
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "content" : "This is message content"
+}

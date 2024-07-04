@@ -5,3 +5,4 @@ dist
 target
 *.log
 *.lock
+package-lock.json

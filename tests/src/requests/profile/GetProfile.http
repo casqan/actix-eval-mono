@@ -1,0 +1,2 @@
+GET {{base_url}}/profiles/{{user_id1}}
+Authorization: Bearer {{auth_token}}

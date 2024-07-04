@@ -1,0 +1,9 @@
+### GET request to example server
+POST {{base_url}}/auth/signin
+Content-Type: application/json
+
+{
+  "email": "user",
+  "password": "Password123!"
+}
+###

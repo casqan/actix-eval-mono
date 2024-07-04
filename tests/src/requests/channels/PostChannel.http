@@ -1,0 +1,7 @@
+POST {{base_url}}/channels/
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "name" : "name"
+}

@@ -1,0 +1,2 @@
+DELETE {{base_url}}/channels/{{channel_id}}
+Authorization: Bearer {{auth_token}}
