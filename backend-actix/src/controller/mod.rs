@@ -1,3 +1,3 @@
-pub mod profile;
-pub mod channel;
-pub mod messages;
+pub mod profile_controller;
+pub mod channel_controller;
+pub mod message_controller;

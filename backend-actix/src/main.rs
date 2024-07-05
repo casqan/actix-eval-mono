@@ -1,4 +1,5 @@
 mod controller;
+mod data;
 
 use std::env;
 use actix_web::{App, HttpServer};
@@ -14,9 +15,9 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .configure(controller::channel::init)
-            .configure(controller::profile::init)
-            .configure(controller::messages::init)
+            .configure(controller::channel_controller::init)
+            .configure(controller::profile_controller::init)
+            .configure(controller::message_controller::init)
     })
         .bind((hostname, port))?
         .run()
