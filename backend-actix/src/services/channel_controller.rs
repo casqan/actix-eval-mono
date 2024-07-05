@@ -1,4 +1,7 @@
 use actix_web::{delete, get, post, put, Responder, web};
+use actix_web::web::Data;
+use sea_query::Query;
+use crate::ServerState;
 
 pub const ROUTE: &str = "/channels";
 
@@ -12,34 +15,35 @@ pub fn init(cfg: &mut web::ServiceConfig) {
             .service(put_channel));
 }
 
+
 #[get("/")]
-async fn get_channels() -> impl Responder {
+async fn get_channels(state: Data<ServerState>) -> impl Responder {
 
 }
 
 #[get("/{channel_id}")]
-async fn get_channel(path: web::Path<String>) -> impl Responder {
+async fn get_channel(path: web::Path<String>, state: Data<ServerState>) -> impl Responder {
     let (channel_id) = path.into_inner();
     Ok(format!("Channel {}!", channel_id))
         .expect("TODO: panic message");
 }
 
 #[post("/{channel_id}")]
-async fn post_channel(path: web::Path<String>) -> impl Responder {
+async fn post_channel(path: web::Path<String>, state: Data<ServerState>) -> impl Responder {
     let (channel_id) = path.into_inner();
     Ok(format!("Channel {}!", channel_id))
         .expect("TODO: panic message");
 }
 
 #[put("/{channel_id}")]
-async fn put_channel(path: web::Path<String>) -> impl Responder {
+async fn put_channel(path: web::Path<String>, state: Data<ServerState>) -> impl Responder {
     let (channel_id) = path.into_inner();
     Ok(format!("Channel {}!", channel_id))
         .expect("TODO: panic message");
 }
 
 #[delete("/{channel_id}")]
-async fn delete_channel(path: web::Path<String>) -> impl Responder {
+async fn delete_channel(path: web::Path<String>, state: Data<ServerState>) -> impl Responder {
     let (channel_id) = path.into_inner();
     Ok(format!("Channel {}!", channel_id))
         .expect("TODO: panic message");
