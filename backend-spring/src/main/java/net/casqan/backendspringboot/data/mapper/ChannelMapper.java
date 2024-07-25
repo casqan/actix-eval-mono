@@ -18,7 +18,7 @@ public final class ChannelMapper {
                 channelEntity.getMembers().stream().map(ProfileEntity::getId).toList(),
                 channelEntity.getMessages().stream().map(MessageEntity::getId).toList(),
                 channelEntity.getName(),
-                channelEntity.getOwnerId(),
+                channelEntity.getOwner().getId(),
                 channelEntity.getUpdatedAt());
     }
 

@@ -32,7 +32,7 @@ public class ChannelController {
 
     @PostMapping()
     public ResponseEntity<Channel> createChannel() {
-        var channel = channelService.createChannel();
+        var channel = channelService.createChannel(new UUID(0,0));
         URI location = URI.create(CHANNEL_BASE_URL + "/" + channel.getId().toString());
         return ResponseEntity.created(location).body(channel);
     }

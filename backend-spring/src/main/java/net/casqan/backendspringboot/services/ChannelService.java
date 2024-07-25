@@ -6,6 +6,7 @@ import net.casqan.backendspringboot.data.entities.ProfileEntity;
 import net.casqan.backendspringboot.data.mapper.ChannelMapper;
 import net.casqan.backendspringboot.data.models.Channel;
 import net.casqan.backendspringboot.data.repositories.ChannelEntityRepository;
+import net.casqan.backendspringboot.data.repositories.ProfileEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +19,31 @@ import java.util.UUID;
 @Service
 public class ChannelService {
 
-    private ChannelEntityRepository channelEntityRepository;
+    private final ChannelEntityRepository channelEntityRepository;
+    private final ProfileEntityRepository profileEntityRepository;
 
-    public ChannelService(@Autowired ChannelEntityRepository channelEntityRepository) {
+    public ChannelService(@Autowired ChannelEntityRepository channelEntityRepository,
+                          @Autowired ProfileEntityRepository profileEntityRepository) {
         this.channelEntityRepository = channelEntityRepository;
+        this.profileEntityRepository = profileEntityRepository;
     }
 
     public Collection<Channel> getChannels() {
         return channelEntityRepository.findAll().stream().map(ChannelMapper::ChannelEntityToChannel).toList();
     }
 
-    public Channel createChannel() {
+    public Channel createChannel(UUID ownerId) {
+
+        var owner = profileEntityRepository.findById(ownerId).orElse(null);
+        if (owner == null) throw new IllegalArgumentException("Owner not found");
+
         var channelEntity = new ChannelEntity();
         var saved = channelEntityRepository.save(channelEntity);
+        saved.setOwner(owner);
+        saved.setCreatedAt(LocalDateTime.now().toString());
+        saved.setUpdatedAt(LocalDateTime.now().toString());
+        saved = channelEntityRepository.save(saved);
+
         return ChannelMapper.ChannelEntityToChannel(saved);
     }
 
