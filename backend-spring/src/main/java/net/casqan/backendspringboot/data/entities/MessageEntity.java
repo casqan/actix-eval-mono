@@ -87,4 +87,9 @@ public class MessageEntity {
     public void setSender(ProfileEntity sender) {
         this.sender = sender;
     }
+
+    public MessageEntity(ChannelEntity channel, ProfileEntity sender) {
+        this.channel = channel;
+        this.sender = sender;
+    }
 }

@@ -76,15 +76,16 @@ public class ChannelEntity {
         this.updatedAt = updatedAt;
     }
 
-    @Column(name = "owner_id", nullable = false)
-    private UUID ownerId;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ProfileEntity owner;
 
-    public UUID getOwnerId() {
-        return ownerId;
+    public ProfileEntity getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(UUID ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(ProfileEntity owner) {
+        this.owner = owner;
     }
 
     @ManyToMany
@@ -112,6 +113,10 @@ public class ChannelEntity {
 
     public void setMessages(List<MessageEntity> messages) {
         this.messages = messages;
+    }
+
+    public ChannelEntity(ProfileEntity owner){
+        this.owner = owner;
     }
 
 }
