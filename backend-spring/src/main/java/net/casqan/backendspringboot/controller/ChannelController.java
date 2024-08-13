@@ -4,7 +4,6 @@ import net.casqan.backendspringboot.data.dto.ChannelDTO;
 import net.casqan.backendspringboot.data.mapper.ChannelMapper;
 import net.casqan.backendspringboot.data.models.Channel;
 import net.casqan.backendspringboot.services.ChannelService;
-import net.sf.jsqlparser.expression.CollateExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,8 @@ public class ChannelController {
 
     private final ChannelService channelService;
 
-    public ChannelController(@Autowired ChannelService channelService) {
+    @Autowired
+    public ChannelController(ChannelService channelService) {
         this.channelService = channelService;
     }
     @GetMapping
@@ -53,6 +53,4 @@ public class ChannelController {
         channelService.deleteChannel(id);
         return ResponseEntity.ok().body("Channel with id: " + id + " deleted!");
     }
-
-
 }
