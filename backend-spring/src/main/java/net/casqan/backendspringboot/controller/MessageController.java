@@ -22,9 +22,9 @@ public class MessageController {
     private final ChannelService channelService;
     private final MessageService messageService;
 
-
-    public MessageController(@Autowired ChannelService channelService,
-                             @Autowired MessageService messageService) {
+    @Autowired
+    public MessageController(ChannelService channelService,
+                             MessageService messageService) {
         this.channelService = channelService;
         this.messageService = messageService;
     }

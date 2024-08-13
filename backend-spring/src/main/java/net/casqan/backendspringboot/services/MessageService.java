@@ -21,10 +21,10 @@ public class MessageService {
     private final MessageEntityRepository messageEntityRepository;
     private final ProfileEntityRepository profileEntityRepository;
 
-
-    public MessageService(@Autowired MessageEntityRepository messageEntityRepository,
-                          @Autowired ProfileEntityRepository profileEntityRepository,
-                          @Autowired ChannelEntityRepository channelEntityRepository){
+    @Autowired
+    public MessageService(MessageEntityRepository messageEntityRepository,
+                          ProfileEntityRepository profileEntityRepository,
+                          ChannelEntityRepository channelEntityRepository){
         this.messageEntityRepository = messageEntityRepository;
         this.profileEntityRepository = profileEntityRepository;
         this.channelEntityRepository = channelEntityRepository;
