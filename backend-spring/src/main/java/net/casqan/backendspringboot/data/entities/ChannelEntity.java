@@ -12,6 +12,44 @@ public class ChannelEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "description", nullable = false)
+    private String description;
+    @Column(name = "is_public", nullable = false)
+    private boolean isPublic;
+    @Column(name = "created_at", nullable = false)
+    private String createdAt;
+    @Column(name = "updated_at", nullable = false)
+    private String updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ProfileEntity owner;
+
+    @ManyToMany
+    @JoinTable(
+            name = "channel_members",
+            joinColumns = @JoinColumn(name = "channel_id"),
+            inverseJoinColumns = @JoinColumn(name = "profile_id")
+    )
+    private List<ProfileEntity> members;
+
+    @OneToMany(mappedBy = "channel")
+    private List<MessageEntity> messages;
+
+    public ChannelEntity(ProfileEntity owner) {
+        this.owner = owner;
+        this.description = "Default description";
+        this.name = "Default name";
+        this.createdAt = java.time.LocalDateTime.now().toString();
+        this.updatedAt = java.time.LocalDateTime.now().toString();
+        this.members = List.of(owner);
+        this.isPublic = false;
+        this.messages = List.of();
+    }
+
+    public ChannelEntity() {
+    }
 
     public UUID getId() {
         return id;
@@ -21,9 +59,6 @@ public class ChannelEntity {
         this.id = id;
     }
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
     public String getName() {
         return name;
     }
@@ -31,9 +66,6 @@ public class ChannelEntity {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Column(name = "description", nullable = false)
-    private String description;
 
     public String getDescription() {
         return description;
@@ -43,9 +75,6 @@ public class ChannelEntity {
         this.description = description;
     }
 
-    @Column(name = "is_public", nullable = false)
-    private boolean isPublic;
-
     public boolean getIsPublic() {
         return isPublic;
     }
@@ -53,9 +82,6 @@ public class ChannelEntity {
     public void setIsPublic(boolean isPublic) {
         this.isPublic = isPublic;
     }
-
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
 
     public String getCreatedAt() {
         return createdAt;
@@ -65,9 +91,6 @@ public class ChannelEntity {
         this.createdAt = createdAt;
     }
 
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
-
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -75,10 +98,6 @@ public class ChannelEntity {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private ProfileEntity owner;
 
     public ProfileEntity getOwner() {
         return owner;
@@ -88,14 +107,6 @@ public class ChannelEntity {
         this.owner = owner;
     }
 
-    @ManyToMany
-    @JoinTable(
-        name = "channel_members",
-        joinColumns = @JoinColumn(name = "channel_id"),
-        inverseJoinColumns = @JoinColumn(name = "profile_id")
-    )
-    private List<ProfileEntity> members;
-
     public List<ProfileEntity> getMembers() {
         return members;
     }
@@ -104,19 +115,12 @@ public class ChannelEntity {
         this.members = members;
     }
 
-    @OneToMany(mappedBy = "channel")
-    private List<MessageEntity> messages;
-
     public List<MessageEntity> getMessages() {
         return messages;
     }
 
     public void setMessages(List<MessageEntity> messages) {
         this.messages = messages;
-    }
-
-    public ChannelEntity(ProfileEntity owner){
-        this.owner = owner;
     }
 
 }
