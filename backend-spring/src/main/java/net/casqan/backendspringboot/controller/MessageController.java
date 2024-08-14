@@ -1,6 +1,6 @@
 package net.casqan.backendspringboot.controller;
 
-import net.casqan.backendspringboot.data.models.Channel;
+import net.casqan.backendspringboot.data.dto.MessageDTO;
 import net.casqan.backendspringboot.data.models.Message;
 import net.casqan.backendspringboot.services.ChannelService;
 import net.casqan.backendspringboot.services.MessageService;
@@ -43,8 +43,8 @@ public class MessageController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Message> updateMessage(@PathVariable UUID channelId, @PathVariable UUID id, @RequestBody Message message) {
-        var res = messageService.updateMessage(channelId, id, message);
+    public ResponseEntity<Message> updateMessage(@PathVariable UUID channelId, @PathVariable UUID id, @RequestBody MessageDTO messageDTO) {
+        var res = messageService.updateMessage(channelId, id, messageDTO.content(), messageDTO.type());
         return ResponseEntity.ok().body(res);
     }
 

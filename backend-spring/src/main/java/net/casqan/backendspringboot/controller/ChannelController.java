@@ -6,7 +6,6 @@ import net.casqan.backendspringboot.data.models.Channel;
 import net.casqan.backendspringboot.services.ChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 import static net.casqan.backendspringboot.data.Constants.CHANNEL_BASE_URL;
 
-@Controller
+@RestController
 @RequestMapping(CHANNEL_BASE_URL)
 public class ChannelController {
 
@@ -25,22 +24,23 @@ public class ChannelController {
     public ChannelController(ChannelService channelService) {
         this.channelService = channelService;
     }
+
     @GetMapping
     public ResponseEntity<Collection<Channel>> getChannels() {
         return ResponseEntity.ok().body(channelService.getChannels());
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<Channel> createChannel() {
-        var channel = channelService.createChannel(new UUID(0,0));
-        URI location = URI.create(CHANNEL_BASE_URL + "/" + channel.getId().toString());
+        var channel = channelService.createChannel(new UUID(0, 0));
+        URI location = URI.create(CHANNEL_BASE_URL + channel.getId().toString());
         return ResponseEntity.created(location).body(channel);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Channel> updateChannel(@PathVariable UUID id, @RequestBody ChannelDTO channel) {
         if (channel.getId() == null || id != channel.getId()) return ResponseEntity.badRequest().build();
-        try{
+        try {
             var result = channelService.updateChannel(ChannelMapper.ChannelDTOToChannel(channel));
             return ResponseEntity.ok().body(result);
         } catch (IllegalArgumentException e) {
@@ -48,7 +48,7 @@ public class ChannelController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteChannel(@PathVariable UUID id) {
         channelService.deleteChannel(id);
         return ResponseEntity.ok().body("Channel with id: " + id + " deleted!");

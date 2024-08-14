@@ -11,6 +11,33 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
+    @Column(name = "content", nullable = false)
+    private String content;
+    @Column(name = "type", nullable = false)
+    private String type;
+    @Column(name = "created_at", nullable = false)
+    private String createdAt;
+    @Column(name = "updated_at", nullable = false)
+    private String updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "channel_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ChannelEntity channel;
+    @ManyToOne
+    @JoinColumn(name = "sender_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private ProfileEntity sender;
+
+    public MessageEntity(ChannelEntity channel, ProfileEntity sender) {
+        this.channel = channel;
+        this.sender = sender;
+        this.content = "";
+        this.type = "text";
+        this.createdAt = java.time.LocalDateTime.now().toString();
+        this.updatedAt = java.time.LocalDateTime.now().toString();
+    }
+
+    public MessageEntity() {
+        
+    }
 
     public UUID getId() {
         return id;
@@ -20,9 +47,6 @@ public class MessageEntity {
         this.id = id;
     }
 
-    @Column(name = "content", nullable = false)
-    private String content;
-
     public String getContent() {
         return content;
     }
@@ -30,9 +54,6 @@ public class MessageEntity {
     public void setContent(String content) {
         this.content = content;
     }
-
-    @Column(name = "type", nullable = false)
-    private String type;
 
     public String getType() {
         return type;
@@ -42,9 +63,6 @@ public class MessageEntity {
         this.type = type;
     }
 
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-
     public String getCreatedAt() {
         return createdAt;
     }
@@ -52,9 +70,6 @@ public class MessageEntity {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
-
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
 
     public String getUpdatedAt() {
         return updatedAt;
@@ -64,10 +79,6 @@ public class MessageEntity {
         this.updatedAt = updatedAt;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private ChannelEntity channel;
-
     public ChannelEntity getChannel() {
         return channel;
     }
@@ -76,20 +87,11 @@ public class MessageEntity {
         this.channel = channel;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private ProfileEntity sender;
-
     public ProfileEntity getSender() {
         return sender;
     }
 
     public void setSender(ProfileEntity sender) {
-        this.sender = sender;
-    }
-
-    public MessageEntity(ChannelEntity channel, ProfileEntity sender) {
-        this.channel = channel;
         this.sender = sender;
     }
 }

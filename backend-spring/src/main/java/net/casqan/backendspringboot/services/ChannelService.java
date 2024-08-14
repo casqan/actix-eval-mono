@@ -17,6 +17,7 @@ public class ChannelService {
 
     private final ChannelEntityRepository channelEntityRepository;
     private final ProfileEntityRepository profileEntityRepository;
+
     @Autowired
     public ChannelService(ChannelEntityRepository channelEntityRepository,
                           ProfileEntityRepository profileEntityRepository) {
@@ -34,12 +35,13 @@ public class ChannelService {
         if (owner == null) throw new IllegalArgumentException("Owner not found");
 
         var channelEntity = new ChannelEntity(owner);
-        var saved = channelEntityRepository.save(channelEntity);
-        saved.setOwner(owner);
-        saved.setCreatedAt(LocalDateTime.now().toString());
-        saved.setUpdatedAt(LocalDateTime.now().toString());
-        saved = channelEntityRepository.save(saved);
+        channelEntity.setOwner(owner);
+        channelEntity.setDescription("Default description");
+        channelEntity.setName("Default name");
+        channelEntity.setCreatedAt(LocalDateTime.now().toString());
+        channelEntity.setUpdatedAt(LocalDateTime.now().toString());
 
+        var saved = channelEntityRepository.save(channelEntity);
         return ChannelMapper.ChannelEntityToChannel(saved);
     }
 
