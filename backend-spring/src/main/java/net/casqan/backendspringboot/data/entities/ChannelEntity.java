@@ -12,17 +12,23 @@ public class ChannelEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "description", nullable = false)
     private String description;
+
     @Column(name = "is_public", nullable = false)
     private boolean isPublic;
+
     @Column(name = "created_at", nullable = false)
     private String createdAt;
+
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id", insertable = false, updatable = false)
     private ProfileEntity owner;
 
@@ -34,7 +40,7 @@ public class ChannelEntity {
     )
     private List<ProfileEntity> members;
 
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "channel")
     private List<MessageEntity> messages;
 
     public ChannelEntity(ProfileEntity owner) {
