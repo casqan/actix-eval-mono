@@ -60,6 +60,9 @@ export default function() {
 
 export function handleSummary(data){
 
-  return { './out/crud-channels-result.json': JSON.stringify(data),};
+  const label = `./out/crud-channels.json`
+  let obj = {}
+  obj[label] = JSON.stringify(data)
+  return {'./out/crud-channels.json' : JSON.stringify(data) };
 }
 
