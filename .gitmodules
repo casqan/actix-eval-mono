@@ -1,0 +1,3 @@
+[submodule "actix-eval-documentation"]
+	path = actix-eval-documentation
+	url = https://github.com/marcmatija/actix-eval-documentation
