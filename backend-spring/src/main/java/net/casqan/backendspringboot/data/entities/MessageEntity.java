@@ -20,10 +20,10 @@ public class MessageEntity {
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
     @ManyToOne
-    @JoinColumn(name = "channel_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "channel_id", referencedColumnName = "id")
     private ChannelEntity channel;
     @ManyToOne
-    @JoinColumn(name = "sender_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private ProfileEntity sender;
 
     public MessageEntity(ChannelEntity channel, ProfileEntity sender) {

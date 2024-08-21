@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name = "channel_entity")
 public class ChannelEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private UUID id;
 
@@ -28,8 +28,8 @@ public class ChannelEntity {
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private ProfileEntity owner;
 
     @ManyToMany

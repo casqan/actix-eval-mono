@@ -2,13 +2,14 @@ package net.casqan.backendspringboot.data.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "profile_entity")
 public class ProfileEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private UUID id;
 
@@ -73,5 +74,30 @@ public class ProfileEntity {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "owner")
+    private List<ChannelEntity> ownedChannels;
+
+    public List<ChannelEntity> getOwnedChannels() {
+        return ownedChannels;
+    }
+
+    public void setOwnedChannels(List<ChannelEntity> ownedChannels) {
+        this.ownedChannels = ownedChannels;
+    }
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "sender")
+    private List<MessageEntity> sentMessages;
+
+    public List<MessageEntity> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(List<MessageEntity> sentMessages) {
+        this.sentMessages = sentMessages;
     }
 }
