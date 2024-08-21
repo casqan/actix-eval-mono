@@ -45,9 +45,9 @@ public class ChannelController {
 
     @PutMapping("{id}")
     public ResponseEntity<Channel> updateChannel(@PathVariable UUID id, @RequestBody ChannelDTO channel) {
-        if (channel.getId() == null || id != channel.getId()) return ResponseEntity.badRequest().build();
+        //if (channel.getId() == null || id != channel.getId()) return ResponseEntity.badRequest().build();
         try {
-            var result = channelService.updateChannel(ChannelMapper.ChannelDTOToChannel(channel));
+            var result = channelService.updateChannel(ChannelMapper.ChannelDTOToChannel(id, channel));
             return ResponseEntity.ok().body(result);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();

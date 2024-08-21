@@ -22,11 +22,11 @@ public final class ChannelMapper {
                 channelEntity.getUpdatedAt());
     }
 
-    public static Channel ChannelDTOToChannel(ChannelDTO channelDTO) {
+    public static Channel ChannelDTOToChannel(UUID id, ChannelDTO channelDTO) {
         return new Channel(
                 channelDTO.getCreatedAt(),
                 channelDTO.getDescription(),
-                channelDTO.getId(),
+                id,
                 channelDTO.isPublic(),
                 channelDTO.getMembers(),
                 channelDTO.getMessages(),
@@ -40,7 +40,6 @@ public final class ChannelMapper {
                 channel.getCreatedAt(),
                 channel.getDescription(),
                 channel.getIsPublic(),
-                channel.getId(),
                 channel.getMembers(),
                 channel.getMessages(),
                 channel.getName(),
