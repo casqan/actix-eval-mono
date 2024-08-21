@@ -6,6 +6,7 @@ import net.casqan.backendspringboot.data.models.Channel;
 import net.casqan.backendspringboot.data.repositories.ChannelEntityRepository;
 import net.casqan.backendspringboot.data.repositories.ProfileEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,11 @@ public class ChannelService {
 
     public Collection<Channel> getChannels() {
         return channelEntityRepository.findAll().stream().map(ChannelMapper::ChannelEntityToChannel).toList();
+    }
+
+    public Channel getChannel(UUID id){
+        var res = channelEntityRepository.findById(id);
+        return res.map(ChannelMapper::ChannelEntityToChannel).orElse(null);
     }
 
     public Channel createChannel(UUID ownerId) {
