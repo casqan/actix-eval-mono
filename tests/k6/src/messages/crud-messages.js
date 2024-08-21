@@ -54,8 +54,6 @@ export const options = {
 // about authoring k6 scripts.
 //
 export default function() {
-  // GET Request
-  http.get(`${__ENV.BASE_API_URL}channel/`)
 
   // POST Request
   const response = http.post(`${__ENV.BASE_API_URL}channel/`);
