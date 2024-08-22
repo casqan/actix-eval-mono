@@ -1,9 +1,5 @@
-mod services;
-mod data;
-
 use std::env;
 use actix_web::{App, HttpServer};
-use actix_web::web::Data;
 use dotenvy::dotenv;
 use sea_orm::{Database, DatabaseConnection};
 
