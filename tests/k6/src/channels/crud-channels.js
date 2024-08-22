@@ -55,10 +55,10 @@ export const options = {
 //
 export default function() {
   // GET Request
-  http.get(`${__ENV.BASE_API_URL}channel/`)
+  http.get(`${__ENV.BASE_API_URL}channels/`)
 
   // POST Request
-  const response = http.post(`${__ENV.BASE_API_URL}channel/`);
+  const response = http.post(`${__ENV.BASE_API_URL}channels/`);
   if (response.status !== 201) {
     console.log(response.status)
     console.log("Post failed... skipping!");
@@ -88,7 +88,7 @@ export default function() {
     "ownerId" : body.ownerId,
     "updatedAt" : body.updatedAt,
   }
-  const response_put = http.put(`${__ENV.BASE_API_URL}channel/${id}`, JSON.stringify(request_body) ,params);
+  const response_put = http.put(`${__ENV.BASE_API_URL}channels/${id}`, JSON.stringify(request_body) ,params);
   if (response_put.status !== 200){
     console.log(response_put.status)
     console.log("Put failed... skipping!")
@@ -98,7 +98,7 @@ export default function() {
   }
 
   // GET Request
-  const response_get = http.get(`${__ENV.BASE_API_URL}channel/${id}`);
+  const response_get = http.get(`${__ENV.BASE_API_URL}channels/${id}`);
   if (response_get.status !== 200){
     console.log(response_get.status)
     console.log("GET failed... skipping!")
@@ -106,7 +106,7 @@ export default function() {
   }
 
   // DELETE Request
-  const response_del = http.del(`${__ENV.BASE_API_URL}channel/${id}`);
+  const response_del = http.del(`${__ENV.BASE_API_URL}channels/${id}`);
   if (response_del.status !== 200){
     console.log(response_del.status)
     console.log("GET failed... skipping!")
