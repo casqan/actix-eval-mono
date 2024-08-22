@@ -1,0 +1,24 @@
+{
+  "name": "k6-load-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn test:profiles && yarn test:channels && yarn test:messages && yarn test:e2e && yarn test:ws",
+    "test:profiles" : "dotenv -e ../.env k6 run --out csv=test_results.csv src/profiles/crud-profiles.js",
+    "test:profiles-debug" : "",
+    "test:channels" : "dotenv -e ../.env k6 run --out csv=test_results.csv src/channels/crud-channels.js",
+    "test:channels-debug": "",
+    "test:messages" :  "dotenv -e ../.env k6 run --out csv=test_results.csv src/messages/crud-messages.js",
+    "test:messages-debug" :  "",
+    "test:e2e" : "",
+    "test:e2e-debug" : "",
+    "test:ws" : "",
+    "test:ws-debug" : ""
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2"
+  }
+}

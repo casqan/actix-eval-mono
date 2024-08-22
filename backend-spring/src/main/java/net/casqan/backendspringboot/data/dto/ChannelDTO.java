@@ -9,18 +9,16 @@ public class ChannelDTO {
     private String description;
     private boolean isPublic;
 
-    private UUID id;
     private List<UUID> members;
     private List<UUID> messages;
     private String name;
     private UUID ownerId;
     private String updatedAt;
 
-    public ChannelDTO(String createdAt, String description, boolean isPublic, UUID id, List<UUID> members, List<UUID> messages, String name, UUID ownerId, String updatedAt) {
+    public ChannelDTO(String createdAt, String description, boolean isPublic, List<UUID> members, List<UUID> messages, String name, UUID ownerId, String updatedAt) {
         this.createdAt = createdAt;
         this.description = description;
         this.isPublic = isPublic;
-        this.id = id;
         this.members = members;
         this.messages = messages;
         this.name = name;
@@ -38,10 +36,6 @@ public class ChannelDTO {
 
     public boolean isPublic() {
         return isPublic;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public List<UUID> getMembers() {
