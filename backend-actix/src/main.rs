@@ -14,7 +14,9 @@ struct ServerState{
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-    let db = Database::connect("").await?;
+    let connection_url = env::var("DATABASE_URL")
+        .expect("DATABASE_URL must be set");
+    let db = Database::connect(connection_url).await?;
     let state = ServerState { db };
 
     let hostname = env::var("HOSTNAME").expect("HOSTNAME must be set");
@@ -23,10 +25,6 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .app_data(Data::new(state))
-            .configure(services::channel_controller::init)
-            .configure(services::profile_controller::init)
-            .configure(services::message_controller::init)
     })
         .bind((hostname, port))?
         .run()
