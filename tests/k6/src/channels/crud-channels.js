@@ -111,7 +111,7 @@ export default function() {
   const response_del = http.del(`${__ENV.BASE_API_URL}channels/${id}`);
   if (response_del.status !== 200){
     console.log(response_del.status)
-    console.log("GET failed... skipping!")
+    console.log("DELETE failed... skipping!")
     console.log(response_del.body)
   }
   sleep(0.5);

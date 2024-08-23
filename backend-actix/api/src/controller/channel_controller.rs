@@ -10,6 +10,7 @@ pub fn init (cfg: &mut web::ServiceConfig){
     cfg.service(get_all);
     cfg.service(get);
     cfg.service(put);
+    cfg.service(delete);
 }
 
 #[post("api/v1/channels/")]
@@ -54,7 +55,7 @@ struct GetPathInfo{
 }
 
 
-#[get("/api/v1/channels/{channel_id}/")]
+#[get("/api/v1/channels/{channel_id}")]
 pub async fn get(state: web::Data<ApiState>, path: web::Path<GetPathInfo>) -> Result<HttpResponse, Error>{
     let conn = &state.conn;
     let id = path.channel_id;
@@ -78,7 +79,7 @@ struct ChannelDTO{
     is_public: bool
 }
 
-#[put("/api/v1/channels/{channel_id}/")]
+#[put("/api/v1/channels/{channel_id}")]
 pub async fn put(state: web::Data<ApiState>, path: web::Path<GetPathInfo>, data:web::Json<ChannelDTO>) 
 -> Result<HttpResponse, Error> {
     let conn = &state.conn;
@@ -112,7 +113,7 @@ pub async fn put(state: web::Data<ApiState>, path: web::Path<GetPathInfo>, data:
         .body(json_result.expect("Failed to serialize")))
 }
 
-#[delete("/api/v1/channels/{channel_id}/")]
+#[delete("/api/v1/channels/{channel_id}")]
 pub async fn delete(state: web::Data<ApiState>, path: web::Path<GetPathInfo>) -> Result<HttpResponse, Error>{
     let conn = &state.conn;
     let id = path.channel_id;
