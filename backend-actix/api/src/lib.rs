@@ -1,8 +1,8 @@
+mod controller;
+
 use std::env;
-use actix_web::{App, Error, HttpRequest, HttpResponse, HttpServer, post, web};
-use service::sea_orm::{Database, DatabaseConnection};
-use ::entity::channel_entity;
-use ::service::channel;
+use actix_web::{ web, App, Error, HttpRequest, HttpResponse, HttpServer};
+use service::sea_orm::{Database, DatabaseConnection, DbErr};
 
 #[derive(Debug, Clone)]
 struct ApiState {
@@ -14,17 +14,15 @@ struct NotFoundDTO {
     path: String,
 }
 
-#[post("api/v1/channel/")]
-async fn create (state: web::Data<ApiState>,
-                 json_data: web::Json<channel_entity::Model>)
-                 -> Result<HttpResponse, Error> {
-    let conn = &state.conn;
-    let data = json_data;
-
-    let result = ChannelService::create_channel(conn, data)
-        .await
-        .expect("cound not insert post");
-    Ok(HttpResponse::Ok().body(result))
+fn handle_error_internal(error: DbErr) -> Result<HttpResponse, Error>{
+    match error.sql_err() {
+        Some(e) => {
+            return Ok(HttpResponse::InternalServerError().body(e.to_string()));
+        }
+        None => {
+            return Ok(HttpResponse::InternalServerError().body("An unknown Error Occured!"));
+        }
+    }
 }
 
 async fn not_found(data: web::Data<ApiState>, request: HttpRequest) -> Result<HttpResponse, Error> {
@@ -32,7 +30,7 @@ async fn not_found(data: web::Data<ApiState>, request: HttpRequest) -> Result<Ht
 }
 
 fn init(cfg: &mut web::ServiceConfig) {
-    cfg.service(create);
+    controller::channel_controller::init(cfg);
 }
 
 #[actix_web::main]
