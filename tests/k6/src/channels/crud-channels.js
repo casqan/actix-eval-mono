@@ -3,7 +3,7 @@ import { sleep } from 'k6';
 
 export const options = {
   // A number specifying the number of VUs to run concurrently.
-  vus: 10,
+  vus: 1,
   // A string specifying the total duration of the test run.
   duration: '30s',
 
@@ -72,6 +72,8 @@ export default function() {
   const id = body.id;
   body.description = "k6 Automated Test";
 
+  console.log(id)
+
   const params ={
     headers: {
       'Content-Type': 'application/json'
@@ -101,7 +103,7 @@ export default function() {
   const response_get = http.get(`${__ENV.BASE_API_URL}channels/${id}`);
   if (response_get.status !== 200){
     console.log(response_get.status)
-    console.log("GET failed... skipping!")
+    console.log(`GET failed for id ${id}... skipping!`)
     console.log(response_get.body)
   }
 

@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Deserialize, Serialize)]
 #[sea_orm(table_name = "message_entity")]
+#[serde(rename_all = "camelCase")]
 pub struct Model {
     pub channel_id: Option<Uuid>,
     #[sea_orm(primary_key, auto_increment = false)]
