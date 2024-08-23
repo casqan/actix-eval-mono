@@ -31,6 +31,7 @@ async fn not_found(data: web::Data<ApiState>, request: HttpRequest) -> Result<Ht
 
 fn init(cfg: &mut web::ServiceConfig) {
     controller::channel_controller::init(cfg);
+    controller::message_controller::init(cfg);
 }
 
 #[actix_web::main]

@@ -13,6 +13,20 @@ pub fn init (cfg: &mut web::ServiceConfig){
     cfg.service(delete);
 }
 
+#[derive(Deserialize)]
+struct ChannelPathInfo{
+    channel_id: Uuid
+}
+
+
+#[serde(rename_all = "camelCase")]
+#[derive(Deserialize)]
+struct ChannelDTO{
+    name: String,
+    description: String,
+    is_public: bool
+}
+
 #[post("api/v1/channels/")]
 pub async fn create (state: web::Data<ApiState>)
                  -> Result<HttpResponse, Error> {
@@ -49,14 +63,8 @@ pub async fn get_all(state: web::Data<ApiState>) -> Result<HttpResponse, Error> 
         .body(json_result.expect("Failed to serialize")))
 }
 
-#[derive(Deserialize)]
-struct GetPathInfo{
-    channel_id: Uuid
-}
-
-
 #[get("/api/v1/channels/{channel_id}")]
-pub async fn get(state: web::Data<ApiState>, path: web::Path<GetPathInfo>) -> Result<HttpResponse, Error>{
+pub async fn get(state: web::Data<ApiState>, path: web::Path<ChannelPathInfo>) -> Result<HttpResponse, Error>{
     let conn = &state.conn;
     let id = path.channel_id;
 
@@ -71,16 +79,8 @@ pub async fn get(state: web::Data<ApiState>, path: web::Path<GetPathInfo>) -> Re
         .body(json_result.expect("Failed to serialize")))
 }
 
-#[serde(rename_all = "camelCase")]
-#[derive(Deserialize)]
-struct ChannelDTO{
-    name: String,
-    description: String,
-    is_public: bool
-}
-
 #[put("/api/v1/channels/{channel_id}")]
-pub async fn put(state: web::Data<ApiState>, path: web::Path<GetPathInfo>, data:web::Json<ChannelDTO>) 
+pub async fn put(state: web::Data<ApiState>, path: web::Path<ChannelPathInfo>, data:web::Json<ChannelDTO>) 
 -> Result<HttpResponse, Error> {
     let conn = &state.conn;
     let id = path.channel_id;
@@ -114,7 +114,7 @@ pub async fn put(state: web::Data<ApiState>, path: web::Path<GetPathInfo>, data:
 }
 
 #[delete("/api/v1/channels/{channel_id}")]
-pub async fn delete(state: web::Data<ApiState>, path: web::Path<GetPathInfo>) -> Result<HttpResponse, Error>{
+pub async fn delete(state: web::Data<ApiState>, path: web::Path<ChannelPathInfo>) -> Result<HttpResponse, Error>{
     let conn = &state.conn;
     let id = path.channel_id;
     

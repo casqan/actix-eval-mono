@@ -46,7 +46,7 @@ impl MessageService {
             .one(db).await
     }
 
-    pub async fn update_channel(db: &DbConn, channel_id: Uuid, data: message_entity::Model) -> Result<message_entity::Model, DbErr> {
+    pub async fn update_message(db: &DbConn, channel_id: Uuid, data: message_entity::Model) -> Result<message_entity::Model, DbErr> {
         let existing_message = Self::get_message(db,data.id, channel_id).await?;
         if existing_message.is_none() {
             return Result::Err(DbErr::RecordNotFound("The Requested message, could not be updated".to_owned()));
@@ -59,7 +59,7 @@ impl MessageService {
         return model.update(db).await;
     }
 
-    pub async fn delete_channel(db: &DbConn, id: Uuid) -> Result<DeleteResult, DbErr>{
+    pub async fn delete_message(db: &DbConn, id: Uuid) -> Result<DeleteResult, DbErr>{
         message_entity::Entity::delete_by_id(id).exec(db).await
     }
 }
