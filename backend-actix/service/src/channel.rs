@@ -1,8 +1,5 @@
-use std::time::SystemTime;
-
-use ::entity::channel_entity;
+use ::entity::{channel_entity, utils::time::get_current_time};
 use sea_orm::*;
-use sqlx::types::chrono::{DateTime, Utc};
 use uuid::Uuid;
 
 pub struct ChannelService {}
@@ -48,8 +45,7 @@ impl ChannelService{
         }
         let mut model: channel_entity::ActiveModel = existing_channel.unwrap().into();
 
-        let current_date: DateTime<Utc> = SystemTime::now().into();
-        model.updated_at = Set(current_date.to_rfc3339());
+        model.updated_at = Set(get_current_time().to_rfc3339());
         model.name = Set(data.name);
         model.description = Set(data.description);
         return model.update(db).await;
