@@ -87,14 +87,14 @@ pub async fn get_message(state: web::Data<ApiState>, path: web::Path<MessagePath
         .body(json_result.expect("Failed to serialize")))
 }
 
-#[put("/api/v1/channels/{channel_id}")]
+#[put("/api/v1/channels/{channel_id}/messages/{message_id}")]
 pub async fn update_message(state: web::Data<ApiState>, path: web::Path<MessagePathInfo>, data:web::Json<MessageDTO>) 
 -> Result<HttpResponse, Error> {
     let conn = &state.conn;
     let channel_id = path.channel_id;
     let message_id = path.message_id;
     
-    let result = MessageService::get_message(conn,channel_id,message_id).await;
+    let result = MessageService::get_message(conn,message_id,channel_id).await;
     
     if result.is_err() {
         return handle_error_internal(result.err().unwrap())
@@ -121,10 +121,10 @@ pub async fn update_message(state: web::Data<ApiState>, path: web::Path<MessageP
         .body(json_result.expect("Failed to serialize")))
 }
 
-#[delete("/api/v1/channels/{channel_id}")]
-pub async fn delete_message(state: web::Data<ApiState>, path: web::Path<ChannelPathInfo>) -> Result<HttpResponse, Error>{
+#[delete("/api/v1/channels/{channel_id}/messages/{message_id}")]
+pub async fn delete_message(state: web::Data<ApiState>, path: web::Path<MessagePathInfo>) -> Result<HttpResponse, Error>{
     let conn = &state.conn;
-    let id = path.channel_id;
+    let id = path.message_id;
     
     let result = MessageService::delete_message(conn, id).await;
     if result.is_err() {

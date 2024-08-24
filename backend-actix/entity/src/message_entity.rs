@@ -58,6 +58,7 @@ impl ActiveModelBehavior for ActiveModel {
             content: Set("".to_owned()),
             created_at: Set(get_current_time().to_rfc3339()),
             updated_at: Set(get_current_time().to_rfc3339()),
+            r#type:Set("text".to_owned()),
             ..ActiveModelTrait::default()
         }
     }
