@@ -3,4 +3,8 @@ name = "backend-actix"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+members = [".", "api", "service", "entity"]
+
 [dependencies]
+api = { path = "api" }

@@ -6,3 +6,4 @@ target
 *.log
 *.lock
 package-lock.json
+.env
