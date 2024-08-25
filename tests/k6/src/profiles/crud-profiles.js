@@ -59,5 +59,8 @@ export default function() {
 }
 
 export function handleSummary(data){
-  return { 'crud-profiles-result.json': JSON.stringify(data)};
+  let label = `${__ENV.TEST_ENV}-profiles-result.json`;
+  let results = {};
+  results[label] = JSON.stringify(data);
+  return results;
 }

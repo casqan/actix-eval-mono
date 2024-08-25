@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  vus: 1,
-  duration: '30s',
+  vus: 50,
+  duration: '15s',
 };
 
 export default function() {
@@ -71,10 +71,9 @@ export default function() {
 }
 
 export function handleSummary(data){
-
-  const label = `./out/crud-channels.json`;
-  let obj = {};
-  obj[label] = JSON.stringify(data);
-  return {'./out/crud-channels.json' : JSON.stringify(data) };
+    let label = `${__ENV.TEST_ENV}-profiles-channels.json`;
+    let results = {};
+    results[label] = JSON.stringify(data);
+    return results;
 }
 

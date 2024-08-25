@@ -13,12 +13,12 @@ def plot_trend_metric(metric_name, values1, values2=None):
 
     plt.figure()
     y_pos = np.arange(len(stats))
-    bars1 = plt.barh(y_pos + 0.2, data1, color='lightgreen', label='File 1', height=0.4)
+    bars1 = plt.barh(y_pos + 0.2, data1, color='lightgreen', label='Spring', height=0.4)
 
     # Initialize for stacking
     if values2:
         data2 = [values2[stat] for stat in stats]
-        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='File 2', height=0.4)
+        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='Actix', height=0.4)
 
     plt.yticks(y_pos, stats)
     plt.title(f'{metric_name} Trend')
@@ -47,11 +47,11 @@ def plot_counter_metric(metric_name, values1, values2=None):
 
     plt.figure()
     y_pos = np.arange(len(labels))
-    bars1 = plt.barh(y_pos + 0.2, data1, color='lightgreen', label='File 1', height=0.4)
+    bars1 = plt.barh(y_pos + 0.2, data1, color='lightgreen', label='Spring', height=0.4)
 
     if values2:
         data2 = list(values2.values())
-        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='File 2', height=0.4)
+        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='Actix', height=0.4)
 
 
     plt.yticks(y_pos, labels)
@@ -81,11 +81,11 @@ def plot_gauge_metric(metric_name, values1, values2=None):
 
     plt.figure()
     y_pos = np.arange(len(labels))
-    bars1 = plt.barh(y_pos - 0.2, data1, color='lightgreen', label='File 1', height=0.4)
+    bars1 = plt.barh(y_pos - 0.2, data1, color='lightgreen', label='Spring', height=0.4)
 
     if values2:
         data2 = list(values2.values())
-        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='File 2', height=0.4)
+        bars2 = plt.barh(y_pos - 0.2, data2, color='indigo', label='Actix', height=0.4)
 
 
     plt.yticks(y_pos, labels)
