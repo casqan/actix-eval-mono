@@ -2,8 +2,8 @@ import http from 'k6/http';
 import {sleep} from 'k6';
 
 export const options = {
-    vus: 100,
-    duration: '15s',
+    vus: 500,
+    duration: '10s',
 };
 
 const MESSAGES_PER_ITERATION = 20
