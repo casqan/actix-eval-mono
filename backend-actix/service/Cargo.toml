@@ -6,6 +6,9 @@ edition = "2021"
 [dependencies]
 entity = { path = "../entity"}
 uuid = { version = "1.10.0", features = ["v4"] }
+jwt = "0.16.0"
+sha2 = "0.11.0-pre.4"
+hmac = "0.13.0-pre.4"
 [dependencies.sea-orm]
 version = "1.1.0-rc.1" # sea-orm version
 features = [

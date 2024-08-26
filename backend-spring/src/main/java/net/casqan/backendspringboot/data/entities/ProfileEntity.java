@@ -43,17 +43,6 @@ public class ProfileEntity {
         this.email = email;
     }
 
-    @Column(name = "sudo_code", nullable = false)
-    private String sudoCode;
-
-    public String getSudoCode() {
-        return sudoCode;
-    }
-
-    public void setSudoCode(String sudoCode) {
-        this.sudoCode = sudoCode;
-    }
-
     @Column(name = "created_at", nullable = false)
     private String createdAt;
 
@@ -76,8 +65,7 @@ public class ProfileEntity {
         this.updatedAt = updatedAt;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<ChannelEntity> ownedChannels;
 
     public List<ChannelEntity> getOwnedChannels() {
@@ -88,9 +76,7 @@ public class ProfileEntity {
         this.ownedChannels = ownedChannels;
     }
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "sender")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<MessageEntity> sentMessages;
 
     public List<MessageEntity> getSentMessages() {
@@ -99,5 +85,27 @@ public class ProfileEntity {
 
     public void setSentMessages(List<MessageEntity> sentMessages) {
         this.sentMessages = sentMessages;
+    }
+
+    @Column(name = "password", nullable = false)
+    byte[] password;
+
+    public byte[] getPassword() {
+        return password;
+    }
+
+    public void setPassword(byte[] password) {
+        this.password = password;
+    }
+
+    @Column(name = "salt", nullable = false)
+    byte[] salt;
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }
