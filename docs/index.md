@@ -1,15 +1,12 @@
 # ACTIX Evaluation
 
 ## Introduction
-The aim of this Project is to evaluate the differences between actix-web and springboot for APIs & Websockets. 
+The aim of this Project is to evaluate the differences between actix-web and springboot for APIs.
 The evaluation will be based on the following criteria:
 
 - Performance
 - Ease of use
 - Documentation
-- Community support
-- Learning curve
-- Testing
 
 ## The Project
 
@@ -28,48 +25,26 @@ A full list of all endpoints can be found here: [API Endpoints](./api/endpoints)
 - PUT /api/v1/channels/{id}/messages/{id}
 - DELETE /api/v1/channels/{id}/messages/{id}
 
-The API will also have a websocket endpoint that will allow clients to connect and send messages.
-
-- ws://localhost:8080/{userid}
-
 ## Dependencies
 
 ***THIS IS A TEMPORARY LIST, CHANGES ARE TO BE EXPECTED***
 
 Rust:
 - actix-web
-- actix-rt
 - actix-web-actors
 - serde
-- diesel
-- tokio
+- SeaORM
 
 Java:
 - Spring Boot
 - Spring Web
 - Spring Data JPA
 - Spring Security
-- Spring Websocket
 - Spring Boot Starter Test
-
-Frontend:
-- Vue
-- Vuetify
-- Axios
-- Vue-Router
-- Vuex
 
 ## Testing
 
 The API will be tested using the following tools:
 
-unit tests:
-- actix-web: actix-web-test
-- springboot: JUnit
-
-integration tests:
-- actix-web: actix-web-test
-- springboot: JUnit
-
 load tests:
-- k6 - Load Testing
+- k6 

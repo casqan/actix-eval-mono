@@ -2,8 +2,8 @@ import http from 'k6/http';
 import {sleep} from 'k6';
 
 export const options = {
-    vus: 10,
-    duration: '30s',
+    vus: 500,
+    duration: '10s',
 };
 
 const MESSAGES_PER_ITERATION = 20
@@ -79,6 +79,9 @@ export default function () {
 }
 
 export function handleSummary(data) {
-    return {'./out/crud-messages.json': JSON.stringify(data)};
+    let label = `${__ENV.TEST_ENV}-profiles-messages.json`;
+    let results = {};
+    results[label] = JSON.stringify(data);
+    return results;
 }
 
