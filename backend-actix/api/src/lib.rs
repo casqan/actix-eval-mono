@@ -1,7 +1,8 @@
 mod controller;
 
 use std::env;
-use actix_web::{ web, App, Error, HttpRequest, HttpResponse, HttpServer};
+use actix_cors::Cors;
+use actix_web::{web, App, Error, HttpRequest, HttpResponse, HttpServer};
 use service::sea_orm::{Database, DatabaseConnection, DbErr};
 
 #[derive(Debug, Clone)]
@@ -36,7 +37,6 @@ fn init(cfg: &mut web::ServiceConfig) {
 
 #[actix_web::main]
 pub async fn start() -> std::io::Result<()> {
-
     // get env vars
     dotenvy::dotenv().ok();
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
@@ -53,6 +53,7 @@ pub async fn start() -> std::io::Result<()> {
             .app_data(web::Data::new(state.clone()))
             .default_service(web::route().to(not_found))
             .configure(init)
+            .wrap(Cors::permissive())
     });
 
     server = server.bind(&server_url)?;
